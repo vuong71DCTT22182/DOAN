@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -7,41 +6,33 @@ error_reporting(0);
 session_start();
 
 
-if(isset($_POST['submit'] ))
-{
-    if(empty($_POST['c_name']))
-		{
-			$error = '<div class="alert alert-danger alert-dismissible fade show">
+if (isset($_POST['submit'])) {
+    if (empty($_POST['c_name'])) {
+        $error = '<div class="alert alert-danger alert-dismissible fade show">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 																<strong>Trường bắt buộc!</strong>
 															</div>';
-		}
-	else
-	{
-		
-	$check_cat= mysqli_query($db, "SELECT c_name FROM res_category where c_name = '".$_POST['c_name']."' ");
+    } else {
 
-	
-	
-	if(mysqli_num_rows($check_cat) > 0)
-     {
-    	$error = '<div class="alert alert-danger alert-dismissible fade show">
+        $check_cat = mysqli_query($db, "SELECT c_name FROM res_category where c_name = '" . $_POST['c_name'] . "' ");
+
+
+
+        if (mysqli_num_rows($check_cat) > 0) {
+            $error = '<div class="alert alert-danger alert-dismissible fade show">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 																<strong>Danh mục đã tồn tại!</strong>
 															</div>';
-     }
-	else{
-       
-	
-	$mql = "INSERT INTO res_category(c_name) VALUES('".$_POST['c_name']."')";
-	mysqli_query($db, $mql);
-			$success = 	'<div class="alert alert-success alert-dismissible fade show">
+        } else {
+
+
+            $mql = "INSERT INTO res_category(c_name) VALUES('" . $_POST['c_name'] . "')";
+            mysqli_query($db, $mql);
+            $success =     '<div class="alert alert-success alert-dismissible fade show">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 																Danh mục mới được thêm thành công.</br></div>';
-	
+        }
     }
-	}
-
 }
 
 
@@ -114,7 +105,7 @@ if(isset($_POST['submit'] ))
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive f-s-20 color-warning"></i><span class="hide-menu">Nhà hàng</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="all_restaurant.php">Tất cả nhà hàng</a></li>
-                                <li><a href="add_category.php">Thêm quốc gia</a></li>
+                                <li><a href="add_category.php">Thêm danh mục</a></li>
                                 <li><a href="add_restaurant.php">Thêm nhà hàng</a></li>
 
                             </ul>
@@ -128,7 +119,7 @@ if(isset($_POST['submit'] ))
                             </ul>
                         </li>
                         <li> <a href="all_orders.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span>Đơn đặt hàng</span></a></li>
-  
+
                     </ul>
                 </nav>
 
@@ -138,7 +129,7 @@ if(isset($_POST['submit'] ))
 
         <div class="page-wrapper">
             <div style="padding-top: 10px;">
-           
+
             </div>
 
             <div class="container-fluid">
@@ -152,9 +143,9 @@ if(isset($_POST['submit'] ))
 
 
 
-                        <?php  
-									        echo $error;
-									        echo $success; ?>
+                        <?php
+                        echo $error;
+                        echo $success; ?>
 
 
 
@@ -163,7 +154,7 @@ if(isset($_POST['submit'] ))
                         <div class="col-lg-12">
                             <div class="card card-outline-primary">
                                 <div class="card-header">
-                                    <h4 class="m-b-0 text-white">Thêm danh mục quốc gia</h4>
+                                    <h4 class="m-b-0 text-white">Thêm danh mục danh mục</h4>
                                 </div>
                                 <form action='' method='post'>
                                     <div class="form-body">
@@ -192,7 +183,7 @@ if(isset($_POST['submit'] ))
 
                 <div class="col-12">
 
-  
+
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Danh mục được liệt kê</h4>
@@ -210,38 +201,31 @@ if(isset($_POST['submit'] ))
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+
 
                                         <?php
-												$sql="SELECT * FROM res_category order by c_id desc";
-												$query=mysqli_query($db,$sql);
-												
-													if(!mysqli_num_rows($query) > 0 )
-														{
-															echo '<td colspan="7"><center>No Categories-Data!</center></td>';
-														}
-													else
-														{				
-																	while($rows=mysqli_fetch_array($query))
-																		{
-																					
-																				
-																				
-																					echo ' <tr><td>'.$rows['c_id'].'</td>
-																								<td>'.$rows['c_name'].'</td>
-																								<td>'.$rows['date'].'</td>
+                                        $sql = "SELECT * FROM res_category order by c_id desc";
+                                        $query = mysqli_query($db, $sql);
+
+                                        if (!mysqli_num_rows($query) > 0) {
+                                            echo '<td colspan="7"><center>No Categories-Data!</center></td>';
+                                        } else {
+                                            while ($rows = mysqli_fetch_array($query)) {
+
+
+
+                                                echo ' <tr><td>' . $rows['c_id'] . '</td>
+																								<td>' . $rows['c_name'] . '</td>
+																								<td>' . $rows['date'] . '</td>
 																								
-																									 <td><a href="delete_category.php?cat_del='.$rows['c_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
-																									 <a href="update_category.php?cat_upd='.$rows['c_id'].'" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="fa fa-edit"></i></a>
+																									 <td><a href="delete_category.php?cat_del=' . $rows['c_id'] . '" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
+																									 <a href="update_category.php?cat_upd=' . $rows['c_id'] . '" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="fa fa-edit"></i></a>
 																									</td></tr>';
-																					 
-																						
-																						
-																		}	
-														}
-												
-											
-											?>
+                                            }
+                                        }
+
+
+                                        ?>
 
 
                                     </tbody>

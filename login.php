@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Đăng nhập || Mã Trại BD</title>
+    <title>Đăng nhập || Nhóm 10</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
@@ -14,10 +13,10 @@
     <link rel="stylesheet" href="css/login.css">
 
     <style type="text/css">
-    #buttn {
-        color: #fff;
-        background-color: #5c4ac7;
-    }
+        #buttn {
+            color: #fff;
+            background-color: #5c4ac7;
+        }
     </style>
 
 
@@ -43,20 +42,17 @@
                         <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Nhà hàng <span class="sr-only"></span></a> </li>
 
                         <?php
-						if(empty($_SESSION["user_id"]))
-							{
-								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Đăng nhập</a> </li>
+                        if (empty($_SESSION["user_id"])) {
+                            echo '<li class="nav-item"><a href="login.php" class="nav-link active">Đăng nhập</a> </li>
 							  <li class="nav-item"><a href="registration.php" class="nav-link active">Đăng ký</a> </li>';
-							}
-						else
-							{
-									
-									
-										echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active">Đơn hàng của tôi</a> </li>';
-									echo  '<li class="nav-item"><a href="logout.php" class="nav-link active">Đăng xuất</a> </li>';
-							}
+                        } else {
 
-						?>
+
+                            echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active">Đơn hàng của tôi</a> </li>';
+                            echo  '<li class="nav-item"><a href="logout.php" class="nav-link active">Đăng xuất</a> </li>';
+                        }
+
+                        ?>
 
 
                     </ul>
@@ -67,34 +63,27 @@
     <div style=" background-image: url('images/img/pimg.jpg');">
 
         <?php
-include("connection/connect.php"); 
-error_reporting(0); 
-session_start(); 
-if(isset($_POST['submit']))  
-{
-	$username = $_POST['username'];  
-	$password = $_POST['password'];
-	
-	if(!empty($_POST["submit"]))   
-     {
-	$loginquery ="SELECT * FROM users WHERE username='$username' && password='".md5($password)."'"; 
-	$result=mysqli_query($db, $loginquery); 
-	$row=mysqli_fetch_array($result);
-	
-	                        if(is_array($row)) 
-								{
-                                    	$_SESSION["user_id"] = $row['u_id']; 
-										 header("refresh:1;url=index.php"); 
-	                            } 
-							else
-							    {
-                                      	$message = "Invalid Username or Password!"; 
-                                }
-	 }
-	
-	
-}
-?>
+        include("connection/connect.php");
+        error_reporting(0);
+        session_start();
+        if (isset($_POST['submit'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            if (!empty($_POST["submit"])) {
+                $loginquery = "SELECT * FROM users WHERE username='$username' && password='" . md5($password) . "'";
+                $result = mysqli_query($db, $loginquery);
+                $row = mysqli_fetch_array($result);
+
+                if (is_array($row)) {
+                    $_SESSION["user_id"] = $row['u_id'];
+                    header("refresh:1;url=index.php");
+                } else {
+                    $message = "Invalid Username or Password!";
+                }
+            }
+        }
+        ?>
 
 
         <div class="pen-title">

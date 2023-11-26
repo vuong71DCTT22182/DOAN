@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -16,7 +15,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="#">
-    <title>Trang chủ || Hệ thống đặt món ăn trực tuyến - Code Camp BD</title>
+    <title>Trang chủ || Hệ thống đặt món ăn trực tuyến - Nhóm 10</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animsition.min.css" rel="stylesheet">
@@ -40,8 +39,7 @@ session_start();
 
 
                         <?php
-                        if (empty($_SESSION["user_id"])) 
-                        {
+                        if (empty($_SESSION["user_id"])) {
                             echo '<li class="nav-item"><a href="login.php" class="nav-link active">Đăng nhập</a> </li>
 							  <li class="nav-item"><a href="registration.php" class="nav-link active">Đăng ký</a> </li>';
                         } else {

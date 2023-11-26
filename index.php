@@ -20,7 +20,25 @@ session_start();
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animsition.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" </head>
+    <link href="css/style.css" rel="stylesheet">
+    <style type="text/css">
+        @keyframes exampleAnimation {
+            from {
+                transform: translate(0px, 0px);
+            }
+
+            to {
+                transform: translate(-10px, -25px);
+            }
+        }
+
+        .food-item-wrap:hover {
+            box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
+            animation: exampleAnimation 0.2s ease-in-out forwards;
+            cursor: pointer;
+        }
+    </style>
+</head>
 
 
 <body class="home">
@@ -121,7 +139,7 @@ session_start();
                 while ($r = mysqli_fetch_array($query_res)) {
 
                     echo '  <div class="col-xs-12 col-sm-6 col-md-4 food-item">
-                                            <div class="food-item-wrap">
+                                            <div class="food-item-wrap " onclick="window.location.href=`dishes.php?res_id=' . $r['rs_id'] . '`">
                                                 <div class="figure-wrap bg-image" data-image-src="admin/Res_img/dishes/' . $r['img'] . '"></div>
                                                 <div class="content">
                                                     <h5><a href="dishes.php?res_id=' . $r['rs_id'] . '">' . $r['title'] . '</a></h5>

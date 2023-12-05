@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("connection/connect.php"); 
+include("connection/connect.php");
 error_reporting(0);
 session_start();
 
-include_once 'product-action.php'; 
+include_once 'product-action.php';
 
 ?>
 
@@ -19,7 +18,7 @@ include_once 'product-action.php';
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="#">
-    <title>Món ăn || Hệ thống đặt món ăn trực tuyến - Code Camp BD</title>
+    <title>Món ăn || Hệ thống đặt món ăn trực tuyến - Nhóm 10</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animsition.min.css" rel="stylesheet">
@@ -41,20 +40,17 @@ include_once 'product-action.php';
                         <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Nhà hàng <span class="sr-only"></span></a> </li>
 
                         <?php
-						if(empty($_SESSION["user_id"]))
-							{
-								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Đăng nhập</a> </li>
+                        if (empty($_SESSION["user_id"])) {
+                            echo '<li class="nav-item"><a href="login.php" class="nav-link active">Đăng nhập</a> </li>
 							  <li class="nav-item"><a href="registration.php" class="nav-link active">Đăng ký</a> </li>';
-							}
-						else
-							{
-									
-									
-										echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active">Đơn hàng của tôi</a> </li>';
-									echo  '<li class="nav-item"><a href="logout.php" class="nav-link active">Đăng xuất</a> </li>';
-							}
+                        } else {
 
-						?>
+
+                            echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active">Đơn hàng của tôi</a> </li>';
+                            echo  '<li class="nav-item"><a href="logout.php" class="nav-link active">Đăng xuất</a> </li>';
+                        }
+
+                        ?>
 
 
                     </ul>
@@ -74,17 +70,17 @@ include_once 'product-action.php';
                 </ul>
             </div>
         </div>
-        <?php $ress= mysqli_query($db,"select * from restaurant where rs_id='$_GET[res_id]'");
-									     $rows=mysqli_fetch_array($ress);
-										  
-										  ?>
+        <?php $ress = mysqli_query($db, "select * from restaurant where rs_id='$_GET[res_id]'");
+        $rows = mysqli_fetch_array($ress);
+
+        ?>
         <section class="inner-page-hero bg-image" data-image-src="images/img/restrrr.png">
             <div class="profile">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12  col-md-4 col-lg-4 profile-img">
                             <div class="image-wrap">
-                                <figure><?php echo '<img src="admin/Res_img/'.$rows['image'].'" alt="Restaurant logo">'; ?></figure>
+                                <figure><?php echo '<img src="admin/Res_img/' . $rows['image'] . '" alt="Restaurant logo">'; ?></figure>
                             </div>
                         </div>
 
@@ -114,7 +110,7 @@ include_once 'product-action.php';
                     <div class="widget widget-cart">
                         <div class="widget-heading">
                             <h3 class="widget-title text-dark">
-                            Giỏ hàng của bạn
+                                Giỏ hàng của bạn
                             </h3>
 
 
@@ -126,32 +122,31 @@ include_once 'product-action.php';
 
                                 <?php
 
-$item_total = 0;
+                                $item_total = 0;
 
-foreach ($_SESSION["cart_item"] as $item)  
-{
-?>
+                                foreach ($_SESSION["cart_item"] as $item) {
+                                ?>
 
-                                <div class="title-row">
-                                    <?php echo $item["title"]; ?><a href="dishes.php?res_id=<?php echo $_GET['res_id']; ?>&action=remove&id=<?php echo $item["d_id"]; ?>">
-                                        <i class="fa fa-trash pull-right"></i></a>
-                                </div>
-
-                                <div class="form-group row no-gutter">
-                                    <div class="col-xs-8">
-                                        <input type="text" class="form-control b-r-0" value=<?php echo "$".$item["price"]; ?> readonly id="exampleSelect1">
-
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <input class="form-control" type="text" readonly value='<?php echo $item["quantity"]; ?>' id="example-number-input">
+                                    <div class="title-row">
+                                        <?php echo $item["title"]; ?><a href="dishes.php?res_id=<?php echo $_GET['res_id']; ?>&action=remove&id=<?php echo $item["d_id"]; ?>">
+                                            <i class="fa fa-trash pull-right"></i></a>
                                     </div>
 
-                                </div>
+                                    <div class="form-group row no-gutter">
+                                        <div class="col-xs-8">
+                                            <input type="text" class="form-control b-r-0" value=<?php echo "$" . $item["price"]; ?> readonly id="exampleSelect1">
+
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input class="form-control" type="text" readonly value='<?php echo $item["quantity"]; ?>' id="example-number-input">
+                                        </div>
+
+                                    </div>
 
                                 <?php
-$item_total += ($item["price"]*$item["quantity"]); 
-}
-?>
+                                    $item_total += ($item["price"] * $item["quantity"]);
+                                }
+                                ?>
 
 
 
@@ -164,23 +159,22 @@ $item_total += ($item["price"]*$item["quantity"]);
                         <div class="widget-body">
                             <div class="price-wrap text-xs-center">
                                 <p>TỔNG CỘNG</p>
-                                <h3 class="value"><strong><?php echo "$".$item_total; ?></strong></h3>
+                                <h3 class="value"><strong><?php echo "$" . $item_total; ?></strong></h3>
                                 <p>Giao hàng miễn phí!</p>
                                 <?php
-                                        if($item_total==0){
-                                        ?>
+                                if ($item_total == 0) {
+                                ?>
 
 
-                                <a href="checkout.php?res_id=<?php echo $_GET['res_id'];?>&action=check" class="btn btn-danger btn-lg disabled">Thủ tục thanh toán</a>
+                                    <a href="checkout.php?res_id=<?php echo $_GET['res_id']; ?>&action=check" style="border-radius: 10px;" class="btn btn-danger btn-lg disabled">Thủ tục thanh toán</a>
 
                                 <?php
-                                        }
-                                        else{   
-                                        ?>
-                                <a href="checkout.php?res_id=<?php echo $_GET['res_id'];?>&action=check" class="btn btn-success btn-lg active">Thủ tục thanh toán</a>
-                                <?php   
-                                        }
-                                        ?>
+                                } else {
+                                ?>
+                                    <a href="checkout.php?res_id=<?php echo $_GET['res_id']; ?>&action=check" style="border-radius: 10px;" class="btn btn-success btn-lg active">Thủ tục thanh toán</a>
+                                <?php
+                                }
+                                ?>
 
                             </div>
                         </div>
@@ -204,50 +198,48 @@ $item_total += ($item["price"]*$item["quantity"]);
                             <div class="clearfix"></div>
                         </div>
                         <div class="collapse in" id="popular2">
-                            <?php  
-									$stmt = $db->prepare("select * from dishes where rs_id='$_GET[res_id]'");
-									$stmt->execute();
-									$products = $stmt->get_result();
-									if (!empty($products)) 
-									{
-									foreach($products as $product)
-										{
-						
-													
-													 
-													 ?>
+                            <?php
+                            $stmt = $db->prepare("select * from dishes where rs_id='$_GET[res_id]'");
+                            $stmt->execute();
+                            $products = $stmt->get_result();
+                            if (!empty($products)) {
+                                foreach ($products as $product) {
 
-                            <div class="food-item">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-lg-8">
-                                        <form method="post" action='dishes.php?res_id=<?php echo $_GET['res_id'];?>&action=add&id=<?php echo $product['d_id']; ?>'>
-                                            <div class="rest-logo pull-left">
-                                                <a class="restaurant-logo pull-left" href="#"><?php echo '<img src="admin/Res_img/dishes/'.$product['img'].'" alt="Food logo">'; ?></a>
+
+
+                            ?>
+
+                                    <div class="food-item">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-lg-8">
+                                                <form method="post" action='dishes.php?res_id=<?php echo $_GET['res_id']; ?>&action=add&id=<?php echo $product['d_id']; ?>'>
+                                                    <div class="rest-logo pull-left">
+                                                        <a class="restaurant-logo pull-left" href="#"><?php echo '<img src="admin/Res_img/dishes/' . $product['img'] . '" alt="Food logo">'; ?></a>
+                                                    </div>
+
+                                                    <div class="rest-descr">
+                                                        <h6><a href="#"><?php echo $product['title']; ?></a></h6>
+                                                        <p> <?php echo $product['slogan']; ?></p>
+                                                    </div>
+
                                             </div>
 
-                                            <div class="rest-descr">
-                                                <h6><a href="#"><?php echo $product['title']; ?></a></h6>
-                                                <p> <?php echo $product['slogan']; ?></p>
+                                            <div class="col-xs-12 col-sm-12 col-lg-3 pull-right item-cart-info">
+                                                <span class="price pull-left">$<?php echo $product['price']; ?></span>
+                                                <input class="b-r-0" type="text" name="quantity" style="margin-left:30px;" value="1" size="2" />
+                                                <input type="submit" class="btn theme-btn" style="border-radius: 10px;" value="Thêm vào giỏ hàng" />
                                             </div>
+                                            </form>
+                                        </div>
 
                                     </div>
-
-                                    <div class="col-xs-12 col-sm-12 col-lg-3 pull-right item-cart-info">
-                                        <span class="price pull-left">$<?php echo $product['price']; ?></span>
-                                        <input class="b-r-0" type="text" name="quantity" style="margin-left:30px;" value="1" size="2" />
-                                        <input type="submit" class="btn theme-btn" style="margin-left:40px;" value="Thêm vào giỏ hàng" />
-                                    </div>
-                                    </form>
-                                </div>
-
-                            </div>
 
 
                             <?php
-									  }
-									}
-									
-								?>
+                                }
+                            }
+
+                            ?>
 
 
 
